@@ -21,7 +21,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
   }
   render() {
     const { activeItem } = this.state;
-    const { match, location, history } = this.props;
+    // const { match, location, history } = this.props;
     return (
       <Menu>
         <Menu.Item name="home" active={activeItem === '/' || activeItem === '/home'} onClick={this.handleItemClick} />
@@ -33,7 +33,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
 }
 
 Header.propTypes = {
-  match: PropTypes.object.isRequired,
+  // match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
