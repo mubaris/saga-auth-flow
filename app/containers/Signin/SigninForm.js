@@ -17,8 +17,8 @@ import PropTypes from 'prop-types';
 //   </div>
 // );
 
-const SigninForm = (props) => { // eslint-disable-line no-unused-vars
-  const { error, handleSubmit, submitting } = props;
+const SigninForm = (props) => {
+  const { error, handleSubmit, submitting } = props; // eslint-disable-line no-unused-vars
   return (
     <Form>
       <Form.Field>
