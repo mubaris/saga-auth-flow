@@ -13,21 +13,26 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Header from 'containers/Header';
+import Signin from 'containers/Signin';
 
 export default function App() {
   return (
     <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/home" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <Container>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/home" component={HomePage} />
+          <Route exact path="/signin" component={Signin} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </Container>
     </div>
   );
 }
