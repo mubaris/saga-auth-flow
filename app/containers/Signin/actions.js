@@ -5,11 +5,28 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  SIGNIN_REQUEST,
+  SIGNIN_SUCCESS,
+  SIGNIN_ERROR,
 } from './constants';
 
-export function defaultAction() {
+export function signinRequest(data) {
   return {
-    type: DEFAULT_ACTION,
+    type: SIGNIN_REQUEST,
+    data,
+  };
+}
+
+export function signinSuccess(token) {
+  return {
+    type: SIGNIN_SUCCESS,
+    token,
+  };
+}
+
+export function signinError(error) {
+  return {
+    type: SIGNIN_ERROR,
+    error,
   };
 }

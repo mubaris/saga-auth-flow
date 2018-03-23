@@ -18,9 +18,9 @@ import PropTypes from 'prop-types';
 // );
 
 const SigninForm = (props) => {
-  const { error, handleSubmit, submitting } = props; // eslint-disable-line no-unused-vars
+  const { error, handleSubmit, submitting } = props;
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Field>
         <label htmlFor="username">Username</label>
         <Field name="username" type="text" component="input" id="username" />
@@ -29,15 +29,16 @@ const SigninForm = (props) => {
         <label htmlFor="password">Password</label>
         <Field name="password" type="password" component="input" id="password" />
       </Form.Field>
-      <Button type="submit">Submit</Button>
+      {error && <strong>{error}</strong>}
+      <Button type="submit" disabled={submitting}>Submit</Button>
     </Form>
   );
 };
 
 SigninForm.propTypes = {
-  error: PropTypes.any,
-  handleSubmit: PropTypes.any,
-  submitting: PropTypes.any,
+  error: PropTypes.string,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
 };
 
 export default reduxForm({
