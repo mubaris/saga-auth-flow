@@ -8,6 +8,10 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import { reducer as formReducer } from 'redux-form/immutable';
 
+import globalReducer from 'containers/App/reducer';
+
+// import signinReducer from 'containers/Signin/reducer';
+
 /*
  * routeReducer
  *
@@ -34,6 +38,8 @@ export default function createReducer(injectedReducers) {
     route: routeReducer,
     language: languageProviderReducer,
     form: formReducer,
+    global: globalReducer,
+    // signinReducer,
     ...injectedReducers,
   });
 }

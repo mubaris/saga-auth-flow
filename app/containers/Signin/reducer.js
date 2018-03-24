@@ -16,13 +16,13 @@ const initialState = fromJS({});
 function signinReducer(state = initialState, action) {
   switch (action.type) {
     case SIGNIN_REQUEST:
-      console.log(action);
+      // console.log(action);
       return state;
     case SIGNIN_SUCCESS:
-      console.log(action);
+      // console.log(action);
       return state;
     case SIGNIN_ERROR:
-      console.log(action);
+      // console.log(action);
       return state;
     default:
       return state;

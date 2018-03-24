@@ -5,6 +5,8 @@ import { createSelector } from 'reselect';
  */
 const selectSigninDomain = (state) => state.get('signin');
 
+const globalState = (state) => state.get('global');
+
 /**
  * Other specific selectors
  */
@@ -19,7 +21,13 @@ const makeSelectSignin = () => createSelector(
   (substate) => substate.toJS()
 );
 
-export default makeSelectSignin;
+const makeAuthState = () => createSelector(
+  globalState,
+  (substate) => substate.get('isAuthenticated')
+);
+
+// export default makeSelectSignin;
 export {
-  selectSigninDomain,
+  makeSelectSignin,
+  makeAuthState,
 };

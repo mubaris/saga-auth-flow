@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Grid } from 'semantic-ui-react';
+import { history as historyPropTypes } from 'history-prop-types';
 // import { Map } from 'immutable';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectSignin from './selectors';
+// import makeSelectSignin from './selectors';
+import { makeSelectSignin, makeAuthState } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { signinRequest } from './actions';
@@ -24,9 +26,11 @@ export class Signin extends React.Component { // eslint-disable-line react/prefe
   submit = (values) => {
     const val = values.toObject();
     const { username, password } = val;
-    this.props.dispatch(signinRequest({ username, password }));
+    const { history } = this.props;
+    this.props.dispatch(signinRequest({ username, password, history }));
   }
   render() {
+    // console.log(this.props);
     return (
       <Grid centered columns={2}>
         <Grid.Column>
@@ -39,11 +43,15 @@ export class Signin extends React.Component { // eslint-disable-line react/prefe
 
 Signin.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape(historyPropTypes),
 };
 
 const mapStateToProps = createStructuredSelector({
   signin: makeSelectSignin(),
+  isAuthenticated: makeAuthState(),
 });
+
+// const mapStateToProps = (state) => state.toJS();
 
 function mapDispatchToProps(dispatch) {
   return {

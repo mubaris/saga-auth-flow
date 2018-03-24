@@ -27,9 +27,9 @@ function parseJSON(response) {
 function* login() {
   while (true) {
     const request = yield take(SIGNIN_REQUEST);
-    const { username, password } = request.data;
+    const { username, password, history } = request.data;
 
-    yield call(authorize, { username, password });
+    yield call(authorize, { username, password, history });
   }
 }
 
@@ -54,14 +54,26 @@ function sendRequest({ username, password }) {
     // });
 }
 
-function* authorize(data) {
+function* authorize({ username, password, history }) {
   try {
-    const response = yield call(sendRequest, data);
+    const response = yield call(sendRequest, { username, password });
     // console.log(response);
-    yield put({ type: SIGNIN_SUCCESS, token: response.key });
+    localStorage.setItem('token', response.key);
+    const signinSuccessResponse = yield put({ type: SIGNIN_SUCCESS });
+    // console.log('====================================');
+    // console.log(signinSuccessResponse);
+    // console.log('====================================');
+    if (signinSuccessResponse) {
+      yield call(forwardTo, history, '/home');
+    }
   } catch (e) {
-    yield put({ type: SIGNIN_ERROR, error: e });
+    console.log(e);
+    yield put({ type: SIGNIN_ERROR, error: e.message });
   }
+}
+
+function forwardTo(history, location) {
+  history.push(location);
 }
 
 export default function* defaultSaga() {

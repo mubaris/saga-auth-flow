@@ -17,10 +17,9 @@ export function signinRequest(data) {
   };
 }
 
-export function signinSuccess(token) {
+export function signinSuccess() {
   return {
     type: SIGNIN_SUCCESS,
-    token,
   };
 }
 
