@@ -41,7 +41,7 @@ SigninForm.propTypes = {
   // error: PropTypes.string,
   handleSubmit: PropTypes.func,
   submitting: PropTypes.bool,
-  children: PropTypes.element,
+  children: PropTypes.string,
 };
 
 export default reduxForm({

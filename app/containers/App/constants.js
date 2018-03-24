@@ -10,3 +10,5 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+export const SIGNIN_SUCCESS_GLOBAL = 'app/App/SIGNIN_SUCCESS';
+export const SIGNOUT_SUCCESS_GLOBAL = 'app/App/SIGNOUT_SUCCESS';

@@ -1,5 +1,8 @@
 import { call, put, take, fork } from 'redux-saga/effects';
 import 'whatwg-fetch';
+
+import { SIGNIN_SUCCESS_GLOBAL } from 'containers/App/constants';
+
 import {
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
@@ -60,6 +63,7 @@ function* authorize({ username, password, history }) {
     // console.log(response);
     localStorage.setItem('token', response.key);
     const signinSuccessResponse = yield put({ type: SIGNIN_SUCCESS });
+    yield put({ type: SIGNIN_SUCCESS_GLOBAL });
     // console.log('====================================');
     // console.log(signinSuccessResponse);
     // console.log('====================================');
