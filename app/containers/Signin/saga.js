@@ -67,7 +67,7 @@ function* authorize({ username, password, history }) {
       yield call(forwardTo, history, '/home');
     }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     yield put({ type: SIGNIN_ERROR, error: e.message });
   }
 }

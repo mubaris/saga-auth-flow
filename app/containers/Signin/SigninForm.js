@@ -18,7 +18,8 @@ import PropTypes from 'prop-types';
 // );
 
 const SigninForm = (props) => {
-  const { error, handleSubmit, submitting } = props;
+  const { handleSubmit, submitting } = props;
+  // console.log(props);
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Field>
@@ -29,16 +30,18 @@ const SigninForm = (props) => {
         <label htmlFor="password">Password</label>
         <Field name="password" type="password" component="input" id="password" />
       </Form.Field>
-      {error && <strong>{error}</strong>}
+      {/* {error ? <strong>{error}</strong> : ''} */}
+      {props.children}
       <Button type="submit" disabled={submitting}>Submit</Button>
     </Form>
   );
 };
 
 SigninForm.propTypes = {
-  error: PropTypes.string,
+  // error: PropTypes.string,
   handleSubmit: PropTypes.func,
   submitting: PropTypes.bool,
+  children: PropTypes.element,
 };
 
 export default reduxForm({

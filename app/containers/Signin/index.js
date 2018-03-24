@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Message } from 'semantic-ui-react';
 import { history as historyPropTypes } from 'history-prop-types';
 // import { Map } from 'immutable';
 
@@ -34,7 +34,15 @@ export class Signin extends React.Component { // eslint-disable-line react/prefe
     return (
       <Grid centered columns={2}>
         <Grid.Column>
-          <SigninForm onSubmit={this.submit} />
+          <SigninForm onSubmit={this.submit}>
+            { this.props.signin.error &&
+            <Message negative>
+              <Message.Header>There was an error in submitting the form</Message.Header>
+              <p>{this.props.signin.error}</p>
+            </Message>
+            }
+          </SigninForm>
+          {/* {this.props.signin.error} */}
         </Grid.Column>
       </Grid>
     );
@@ -44,6 +52,7 @@ export class Signin extends React.Component { // eslint-disable-line react/prefe
 Signin.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape(historyPropTypes),
+  signin: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
