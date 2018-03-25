@@ -74,7 +74,12 @@ function* finishLogout(history) {
 }
 
 function forwardTo(history, location) {
-  history.push(location);
+  history.push({
+    pathname: location,
+    state: {
+      message: 'Signout Success',
+    },
+  });
 }
 
 export default function* defaultSaga() {

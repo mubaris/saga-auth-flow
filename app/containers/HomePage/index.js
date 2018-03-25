@@ -11,14 +11,30 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import { history as historyPropTypes } from 'history-prop-types';
+import { ToastContainer, toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import messages from './messages';
 
 export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    if (this.props.history.location.state) {
+      toast(this.props.history.location.state.message);
+    }
+  }
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <h1>
+          <FormattedMessage {...messages.header} />
+        </h1>
+        <ToastContainer autoClose={3000} />
+      </div>
     );
   }
 }
+
+HomePage.propTypes = {
+  history: PropTypes.shape(historyPropTypes),
+};

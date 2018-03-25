@@ -1,12 +1,12 @@
 import { call, put, take, fork } from 'redux-saga/effects';
 import 'whatwg-fetch';
 
-import { SIGNIN_SUCCESS_GLOBAL } from 'containers/App/constants';
+import { SIGNUP_SUCCESS_GLOBAL } from 'containers/App/constants';
 
 import {
-  SIGNIN_REQUEST,
-  SIGNIN_SUCCESS,
-  SIGNIN_ERROR,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
   URL,
 } from './constants';
 
@@ -27,25 +27,26 @@ function parseJSON(response) {
   return response.json();
 }
 
-function* login() {
+function* signup() {
   while (true) {
-    const request = yield take(SIGNIN_REQUEST);
-    const { username, password, history } = request.data;
+    const request = yield take(SIGNUP_REQUEST);
+    const { username, password1, password2, history } = request.data;
 
-    yield call(authorize, { username, password, history });
+    yield call(authorize, { username, password1, password2, history });
   }
 }
 
-function sendRequest({ username, password }) {
+function sendRequest({ username, password1, password2 }) {
   // console.log(username, password, 'test');
-  return fetch(`${URL}login/`, {
+  return fetch(`${URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       username,
-      password,
+      password1,
+      password2,
     }),
   }).then(checkStatus).then(parseJSON);
     // .then((response) => response.json())
@@ -57,13 +58,13 @@ function sendRequest({ username, password }) {
     // });
 }
 
-function* authorize({ username, password, history }) {
+function* authorize({ username, password1, password2, history }) {
   try {
-    const response = yield call(sendRequest, { username, password });
+    const response = yield call(sendRequest, { username, password1, password2 });
     // console.log(response);
     localStorage.setItem('token', response.key);
-    const signinSuccessResponse = yield put({ type: SIGNIN_SUCCESS });
-    yield put({ type: SIGNIN_SUCCESS_GLOBAL });
+    const signinSuccessResponse = yield put({ type: SIGNUP_SUCCESS });
+    yield put({ type: SIGNUP_SUCCESS_GLOBAL });
     // console.log('====================================');
     // console.log(signinSuccessResponse);
     // console.log('====================================');
@@ -72,7 +73,7 @@ function* authorize({ username, password, history }) {
     }
   } catch (e) {
     // console.log(e);
-    yield put({ type: SIGNIN_ERROR, error: e.message });
+    yield put({ type: SIGNUP_ERROR, error: e.message });
   }
 }
 
@@ -80,12 +81,12 @@ function forwardTo(history, location) {
   history.push({
     pathname: location,
     state: {
-      message: 'Signin Success',
+      message: 'Signup Success',
     },
   });
 }
 
 export default function* defaultSaga() {
   // See example in containers/HomePage/saga.js
-  yield fork(login);
+  yield fork(signup);
 }
