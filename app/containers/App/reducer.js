@@ -10,6 +10,7 @@ export default function (state = initialState, action) {
     case SIGNIN_SUCCESS_GLOBAL:
       return state.set('isAuthenticated', true);
     case SIGNOUT_SUCCESS_GLOBAL:
+      localStorage.removeItem('token');
       return state.set('isAuthenticated', false);
     default:
       return state;

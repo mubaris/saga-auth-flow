@@ -37,7 +37,7 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     this.props.history.push(`/${name}`);
   }
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { activeItem } = this.state;
     // const { match, location, history } = this.props;
     return (
