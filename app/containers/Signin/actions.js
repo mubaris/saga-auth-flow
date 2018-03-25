@@ -8,6 +8,7 @@ import {
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
   SIGNIN_ERROR,
+  RESET_ERROR,
 } from './constants';
 
 export function signinRequest(data) {
@@ -27,5 +28,11 @@ export function signinError(error) {
   return {
     type: SIGNIN_ERROR,
     error,
+  };
+}
+
+export function resetError() {
+  return {
+    type: RESET_ERROR,
   };
 }

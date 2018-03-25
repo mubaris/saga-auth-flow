@@ -19,10 +19,13 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectSignin, makeAuthState } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { signinRequest } from './actions';
+import { signinRequest, resetError } from './actions';
 import SigninForm from './SigninForm';
 
 export class Signin extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  componentWillMount() {
+    this.props.dispatch(resetError());
+  }
   submit = (values) => {
     const val = values.toObject();
     const { username, password } = val;

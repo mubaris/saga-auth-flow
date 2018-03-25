@@ -11,19 +11,25 @@ import {
 } from './constants';
 
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  // if (response.status >= 200 && response.status < 300) {
+  //   return response;
+  // }
+  // const error = new Error(response.statusText);
+  // error.response = response;
+  // throw error;
+  return response;
 }
 
 function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
+  if (response.status >= 200 && response.status < 300) {
+    return response.json();
+  }
+  // const error = new Error(response.statusText);
+  // error.response = response.json();
+  // throw error;
   return response.json();
 }
 
@@ -62,17 +68,18 @@ function* authorize({ username, password1, password2, history }) {
   try {
     const response = yield call(sendRequest, { username, password1, password2 });
     // console.log(response);
-    localStorage.setItem('token', response.key);
-    const signinSuccessResponse = yield put({ type: SIGNUP_SUCCESS });
-    yield put({ type: SIGNUP_SUCCESS_GLOBAL });
-    // console.log('====================================');
-    // console.log(signinSuccessResponse);
-    // console.log('====================================');
-    if (signinSuccessResponse) {
-      yield call(forwardTo, history, '/home');
+    if (response.key) {
+      localStorage.setItem('token', response.key);
+      const signinSuccessResponse = yield put({ type: SIGNUP_SUCCESS });
+      if (signinSuccessResponse) {
+        yield put({ type: SIGNUP_SUCCESS_GLOBAL });
+        yield call(forwardTo, history, '/home');
+      }
+    } else {
+      // console.log(response.toString());
+      yield put({ type: SIGNUP_ERROR, error: Object.values(response)[0] });
     }
   } catch (e) {
-    // console.log(e);
     yield put({ type: SIGNUP_ERROR, error: e.message });
   }
 }

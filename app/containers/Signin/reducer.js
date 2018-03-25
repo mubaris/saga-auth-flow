@@ -9,6 +9,7 @@ import {
   SIGNIN_REQUEST,
   SIGNIN_SUCCESS,
   SIGNIN_ERROR,
+  RESET_ERROR,
 } from './constants';
 
 const initialState = fromJS({
@@ -26,6 +27,9 @@ function signinReducer(state = initialState, action) {
     case SIGNIN_ERROR:
       // console.log(action);
       return state.set('error', action.error);
+    case RESET_ERROR:
+      // console.log(action);
+      return state.set('error', '');
     default:
       return state;
   }
