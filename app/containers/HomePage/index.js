@@ -29,7 +29,7 @@ export default class HomePage extends React.PureComponent { // eslint-disable-li
         <h1>
           <FormattedMessage {...messages.header} />
         </h1>
-        {this.props.history.location.state.message &&
+        {this.props.history.location.state &&
         <ToastContainer autoClose={3000} />
         }
       </div>

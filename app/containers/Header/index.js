@@ -43,6 +43,12 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
     return (
       <Menu secondary>
         <Menu.Item name="home" active={activeItem === '/' || activeItem === '/home'} onClick={this.handleItemClick} />
+        {this.props.isAuthenticated &&
+          <Menu.Item name="dashboard" active={activeItem === '/dashboard'} onClick={this.handleItemClick} />
+        }
+        {this.props.isAuthenticated &&
+          <Menu.Item name="notes" active={activeItem === '/notes'} onClick={this.handleItemClick} />
+        }
         <Menu.Menu position="right">
           {/* <Menu.Item name="signin" active={activeItem === '/signin'} onClick={this.handleItemClick} /> */}
           {!this.props.isAuthenticated &&

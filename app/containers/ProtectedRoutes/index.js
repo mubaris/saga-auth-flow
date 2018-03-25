@@ -12,6 +12,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Dashboard from 'containers/Dashboard';
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
@@ -36,7 +37,7 @@ export class ProtectedRoutes extends React.Component { // eslint-disable-line re
   render() {
     return (
       <Switch>
-        <PrivateRoute exact path="/dashboard" component={HomePage} authenticated={this.props.isAuthenticated} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} authenticated={this.props.isAuthenticated} />
         <PrivateRoute exact path="/notes" component={HomePage} authenticated={this.props.isAuthenticated} />
         <Route component={NotFoundPage} />
       </Switch>
