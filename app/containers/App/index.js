@@ -16,12 +16,13 @@ import { Switch, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 
 import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+// import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Header from 'containers/Header';
 import Signin from 'containers/Signin';
 import Signout from 'containers/Signout';
 import Signup from 'containers/Signup';
+import ProtectedRoutes from 'containers/ProtectedRoutes';
 
 export default function App() {
   return (
@@ -34,7 +35,8 @@ export default function App() {
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signout" component={Signout} />
           <Route exact path="/signup" component={Signup} />
-          <Route component={NotFoundPage} />
+          <ProtectedRoutes />
+          {/* <Route component={NotFoundPage} /> */}
         </Switch>
       </Container>
     </div>
